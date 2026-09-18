@@ -1,0 +1,2 @@
+Squash feature line 1
+Squash feature line 2
