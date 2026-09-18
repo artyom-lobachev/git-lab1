@@ -1,1 +1,2 @@
 Merge feature like 1
+Merge feature line 2
