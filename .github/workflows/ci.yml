@@ -13,9 +13,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Verify repository files
         run: |
           test -f README.md
           test -f .gitignore
           echo "Basic checks passed"
+
+      - name: Secret scanning with TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --results=verified,unknown
