@@ -1,1 +1,2 @@
-Different content from main side
+Feature note for Issue #1: demonstrates the Pull Request workflow.
+Status: ready for review
