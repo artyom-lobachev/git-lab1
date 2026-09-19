@@ -1,2 +1,2 @@
-Feature note for Issue #1
-Status: draft
+Feature note for Issue #1: demonstrates the Pull Request workflow.
+Status: ready for review
