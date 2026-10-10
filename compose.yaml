@@ -1,9 +1,11 @@
 services:
   backend:
+    image: lab2-backend:latest
     build:
       context: ./backend
 
   frontend:
+    image: lab2-frontend:latest
     build:
       context: ./frontend
     ports:
