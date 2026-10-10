@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 2</title>
+</head>
+<body>
+    <h1>Docker Compose Lab</h1>
+    <p id="message">Loading...</p>
+
+    <script>
+        fetch('/api/message')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+            })
+            .catch(error => {
+                document.getElementById('message').textContent =
+                    'Backend connection failed';
+                console.error(error);
+            });
+    </script>
+</body>
+</html>
