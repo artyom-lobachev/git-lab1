@@ -1,0 +1,54 @@
+---
+- name: Deploy Lab 2 application
+  hosts: lab_vm
+  become: true
+
+  vars:
+    app_dir: /opt/lab2
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+        state: present
+        update_cache: true
+
+    - name: Ensure Docker is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Create application directory
+      ansible.builtin.file:
+        path: "{{ app_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Copy compose file
+      ansible.builtin.copy:
+        src: ../compose.yaml
+        dest: "{{ app_dir }}/compose.yaml"
+        mode: "0644"
+
+    - name: Copy backend
+      ansible.builtin.copy:
+        src: ../backend/
+        dest: "{{ app_dir }}/backend/"
+
+    - name: Copy frontend
+      ansible.builtin.copy:
+        src: ../frontend/
+        dest: "{{ app_dir }}/frontend/"
+
+    - name: Ensure application is running
+      ansible.builtin.command:
+        cmd: docker compose up --build -d
+        chdir: "{{ app_dir }}"
+      register: compose_result
+      changed_when: >
+        'Created' in (compose_result.stdout + compose_result.stderr) or
+        'Recreated' in (compose_result.stdout + compose_result.stderr) or
+        'Started' in (compose_result.stdout + compose_result.stderr)
